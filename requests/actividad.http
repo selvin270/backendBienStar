@@ -1,0 +1,33 @@
+@api = http://localhost:4000/actividad
+
+GET {{api}}
+
+###
+GET {{api}}/1/1
+
+###
+GET {{api}}/count
+
+###
+POST {{api}}
+Content-Type: application/json
+
+{
+    "id_meta_objetivo": 1,
+    "id_usuario": 2,
+    "id_semana": 1,
+    "fecha_creacion": "2024-11-01",
+    "fecha_terminado": "2024-11-30"
+}
+
+###
+DELETE {{api}}/3
+
+###
+PUT {{api}}/9
+Content-Type: application/json
+
+{
+    "descripcion": "deporte",
+    "tutorial": "http://www.google.com"
+}

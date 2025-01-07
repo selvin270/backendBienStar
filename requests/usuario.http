@@ -1,0 +1,43 @@
+@api = http://localhost:4000
+
+###inicio de sesion
+POST {{api}}/inicio-sesion
+Content-Type: application/json
+
+{
+    "correo": "juan@example.com",
+    "contrasenia": "12345"
+}
+
+###creacion de nuevo usuario
+POST {{api}}/crear-usuario
+Content-Type: application/json
+
+{
+    "nombre": "Paco",
+    "apellido": "Mendez",
+    "correo": "paco@example.com",
+    "contrasenia": "12345",
+    "edad": "58",
+    "genero": "masculino",
+    "estatura": "170",
+    "peso": "200"
+}
+
+###borrar usuario
+DELETE {{api}}/8
+
+###editar un usuario
+PUT {{api}}/10
+Content-Type: application/json
+
+{
+    "nombre": "Paco",
+    "apellido": "Mendez",
+    "correo": "paco@example.com",
+    "contrasenia": "12345",
+    "edad": "58",
+    "genero": "masculino",
+    "estatura": "170",
+    "peso": "200"
+}

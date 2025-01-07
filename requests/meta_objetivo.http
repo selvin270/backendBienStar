@@ -1,0 +1,17 @@
+@api = http://localhost:4000
+
+###
+# Obtener todos los objetivos asociados a una meta específica
+GET {{api}}/objetivos/1
+
+###
+# Obtener todas las metas
+GET {{api}}/metas/1/2
+
+###
+# Obtener una meta especifica
+GET {{api}}/meta/24
+
+###
+# Obtener una meta especifica
+GET {{api}}/objetivo/24

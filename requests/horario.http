@@ -1,0 +1,11 @@
+@api = http://localhost:4000
+
+###añadir horario
+POST {{api}}/horario
+Content-Type: application/json
+
+{
+    "id_actividad": 2,
+    "hora_inicio": "07:00:00",
+    "hora_fin": "08:00:00"
+}
