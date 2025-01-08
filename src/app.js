@@ -27,6 +27,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// Rutas principales
 app.use(actividadRoutes);
 app.use(metaObjetivoRoutes);
 app.use(usuarioRoute);
@@ -34,6 +35,22 @@ app.use(horarioRoute);
 app.use(evaluacionRoute);
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
+// Documentación con Swagger
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(specs));
+
+// Endpoint para la ruta raíz
+app.get("/", (req, res) => {
+  res.send(`
+    <h1>Bienvenido al backend de BienStar</h1>
+    <p>Accede a la <a href="/docs">documentación Swagger</a> para explorar los endpoints disponibles.</p>
+  `);
+});
+
+// Manejo de rutas no encontradas
+app.use((req, res) => {
+  res.status(404).send({
+    message: "Endpoint no encontrado. Por favor, verifica la URL.",
+  });
+});
 
 export default app;
