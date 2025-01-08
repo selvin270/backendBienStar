@@ -27,12 +27,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Rutas principales
-app.use(actividadRoutes);
-app.use(metaObjetivoRoutes);
-app.use(usuarioRoute);
-app.use(horarioRoute);
-app.use(evaluacionRoute);
+// Prefijo para las rutas
+app.use("/actividad", actividadRoutes);
+app.use("/metaObjetivo", metaObjetivoRoutes);
+app.use("/usuario", usuarioRoute);
+app.use("/horario", horarioRoute);
+app.use("/evaluacion", evaluacionRoute);
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // Documentación con Swagger
