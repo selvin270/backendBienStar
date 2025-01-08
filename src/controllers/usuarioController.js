@@ -461,3 +461,56 @@ export const googleLogin = async (req, res) => {
     });
   }
 };
+
+export const facebookLogin = async (req, res) => {
+  try {
+    const { correo, nombre, apellido, avatar } = req.body;
+
+    if (!correo || !nombre || !apellido) {
+      return res.status(400).json({
+        tipo: "error",
+        msj: "Faltan datos obligatorios: correo, nombre o apellido",
+      });
+    }
+
+    const connection = await connect();
+
+    // Verifica si el usuario ya existe
+    const [rows] = await connection.query(
+      "SELECT * FROM usuario WHERE correo = ?",
+      [correo]
+    );
+
+    let id_usuario;
+
+    if (rows.length > 0) {
+      // Usuario existente: actualiza el avatar
+      id_usuario = rows[0].id_usuario;
+      await connection.query(
+        "UPDATE usuario SET avatar = ?, avatar_updated_at = NOW() WHERE correo = ?",
+        [avatar, correo]
+      );
+    } else {
+      // Nuevo usuario: crea el registro
+      const [result] = await connection.query(
+        `INSERT INTO usuario (nombre, apellido, correo, contrasenia, edad, genero, estatura, peso, avatar) 
+         VALUES (?, ?, ?, ?, 0, '', 0, 0, ?)`,
+
+        [nombre, apellido, correo, "facebook-auth", avatar]
+      );
+      id_usuario = result.insertId;
+    }
+
+    res.json({
+      tipo: "success",
+      msj: "Usuario autenticado correctamente",
+      id_usuario,
+    });
+  } catch (error) {
+    console.error("Error en el inicio de sesión con Facebook:", error);
+    res.status(500).json({
+      tipo: "error",
+      msj: "Error interno del servidor",
+    });
+  }
+};
